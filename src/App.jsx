@@ -1,3 +1,4 @@
+import { SnackbarProvider } from "notistack";
 import { Fragment, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -9,12 +10,14 @@ import SignUp from "./pages/SignUp/SignUp";
 function App() {
   return (
     <Fragment>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
+      <SnackbarProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </BrowserRouter>
+      </SnackbarProvider>
     </Fragment>
   );
 }
