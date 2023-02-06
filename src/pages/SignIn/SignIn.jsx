@@ -11,25 +11,39 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import axios from "axios";
-import { API_URL } from "../../constant";
 import { Link } from "react-router-dom";
 import Copyright from "../../components/Footer/CopyRight";
+import { SignInWeb } from "../../api/apis";
+import { useDispatch } from "react-redux";
+import { StoreMemberOauth } from "../../redux/action/ACTION";
+import { useSnackbar } from "notistack";
+import { errorConfig, successConfig } from "../../utils/alert/AlertConfig";
 
 const theme = createTheme();
 
 export default function SignIn() {
-  const [data, setData] = useState({});
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = data;
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(data);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(`${API_URL}`, { method: "login", ...data })
+    SignInWeb({ email: email, password: password })
       .then(function (res) {
-        console.log(res.data);
+        const obj = res.data;
+        const OK = obj.code === "Ok";
+        if (OK) {
+          enqueueSnackbar(obj.message, successConfig);
+          dispatch(StoreMemberOauth(obj));
+        } else {
+          enqueueSnackbar(obj.message, errorConfig);
+        }
       })
       .catch(function (err) {
         console.error(err);

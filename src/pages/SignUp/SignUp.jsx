@@ -15,6 +15,7 @@ import axios from "axios";
 import { API_URL } from "../../constant";
 import { Link } from "react-router-dom";
 import Copyright from "../../components/Footer/CopyRight";
+import { SignUpWeb } from "../../api/apis";
 
 const theme = createTheme();
 
@@ -32,8 +33,12 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios
-      .post(`${API_URL}`, data)
+    SignUpWeb({
+      userName: userName,
+      password: password,
+      password2: password2,
+      email: email,
+    })
       .then(function (res) {
         console.log(res.data);
       })
@@ -110,10 +115,6 @@ export default function SignUp() {
               autoComplete
             />
 
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               type="submit"
               fullWidth
