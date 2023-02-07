@@ -3,7 +3,7 @@ import { Fragment, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Home from "./pages/Home";
+import Home from "./pages/Home/Home";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 
@@ -13,6 +13,7 @@ function App() {
       <SnackbarProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/home" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
           </Routes>
