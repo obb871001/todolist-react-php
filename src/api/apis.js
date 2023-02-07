@@ -9,7 +9,7 @@ export const SignInWeb = ({ email, password } = {}) => {
   })
 };
 
-export const SignUpWeb = ({ email, password } = {}) => {
+export const SignUpWeb = ({ email, password,userName,password2 } = {}) => {
     return axios.post(`${API_URL}`, {
       method: "Register",
       userName: userName,
