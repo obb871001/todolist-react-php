@@ -39,9 +39,11 @@ export default function SignIn() {
         const obj = res.data;
         const OK = obj.code === "Ok";
         if (OK) {
+          console.log(obj);
           enqueueSnackbar(obj.message, successConfig);
           dispatch(StoreMemberOauth(obj));
         } else {
+          console.log(obj);
           enqueueSnackbar(obj.message, errorConfig);
         }
       })
@@ -110,9 +112,7 @@ export default function SignIn() {
             </Button>
             <Grid container>
               <Grid item xs>
-                {/* <Link >
-                  Forgot password?
-                </Link> */}
+                <Link to="/home">Home</Link>
               </Grid>
               <Grid item>
                 <Link to="/signup">{"Don't have an account? Sign Up"}</Link>
