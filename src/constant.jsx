@@ -1,1 +1,3 @@
-export const API_URL = "http://localhost/Myproject1/func/member.php";
+export const API_URL = `${
+  import.meta.env.VITE_API_URL
+}/Myproject1/func/member.php`;
