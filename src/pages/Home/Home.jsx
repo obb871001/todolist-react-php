@@ -1,10 +1,13 @@
 import { Fragment } from "react";
-import Header from "../../components/Header/Header";
+import Wrapper from "../../components/Wrapper/Wrapper";
+import Body from "./Body";
+import Main from "./Main";
 
 const Home = () => {
   return (
     <Fragment>
-      <Header />
+      <Main />
+      <Body />
     </Fragment>
   );
 };
