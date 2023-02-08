@@ -25,45 +25,71 @@ w_log("Request", true);
 $data = json_decode($bodyMsg,true);
 w_log("json_decode", json_encode($data));
 
+
 switch($method){
     case "Register":
-        $userName= $data['userName'] ?? "-1";
-        $password= $data['password'] ?? "-1";
-        $password2= $data['password2'] ?? "-1";
-        $email= $data['email'] ?? "-1";
+        $userName= $data['userName'] ?? "";
+        $password= $data['password'] ?? "";
+        $password2= $data['password2'] ?? "";
+        $email= $data['email'] ?? "";
         
-        if($userName=="-1"||$password=="-1"||$password2=="-1"||$email=="-1"){
-            $result['code'] = "Error";
+        if($userName==""||$password==""||$password2==""||$email==""){
+            $result = array(
+                "code" => "Error",
+                "message" => "not data",
+            );
         }else{
-            $sql = "INSERT INTO register_list (userName,password,password2,email) VALUES ('".$userName."','".$password."','".$password2."','".$email."') ";
-            sql_exe($sql);
+            $m = loaddata_row("register_list","WHERE email='". $email ."'");
+            if($userName == $m['userName']){
+                $result = array(
+                    "code" => "Error",
+                    "message" => "User exist",
+                );
+            }elseif($email == $m['email']){
+                $result = array(
+                    "code" => "Error",
+                    "message" => "Email exist",
+                );
+            }else{
+                $sql = "INSERT INTO register_list (userName,password,password2,email) VALUES ('".$userName."','".$password."','".$password2."','".$email."')";
+                sql_exe($sql);
+                $result = array(
+                    "code" => "Ok",
+                    "message" => "Register success!",
+                );
+            }
         }
         break;
         
     case "login":
-        $email = $data['email'] ?? "-1";
-        $password= $data['password'] ?? "-1";
+        $email = $data['email'] ?? "";
+        $password= $data['password'] ?? "";
         
-        if($email=="-1"||$password=="-1"){
-            $result = [
+        if($email==""||$password==""){
+            $result = array(
                 'code'=>'Error',
                 'message'=>'email or password wrong format'
-            ];
+            );
         }else{
             $m = loaddata_row("register_list","WHERE email='". $email ."'");
-            if(is_null($m)){
-                $result = [
+            if ($m==NULL){
+                $result = array(
                     "code" => "Error",
-                    "message" => "email or password wrong format.",
-                ];
+                    "message" => "Email not exist",
+                );
             }else{
-                if($password ===$m['password']){
+                if($password === $m['password'] && $email === $m['email']){
                     $oauth = md5(uniqid(mt_srand((double)microtime() * 1000000)));
-                    
-                    $result  = [
-                      'code' => "login!",
+                    $result  = array(
+                      'code' => 'Ok',
+                      'message' => "Login!",
                       'oauth' => $oauth,
-                    ];
+                    );
+                }else{
+                    $result = array(
+                      'code' => 'Error',
+                      'message' => 'Password Wrong',
+                    );
                 }
             }
         }
