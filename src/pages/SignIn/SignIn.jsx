@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Copyright from "../../components/Footer/CopyRight";
 import { SignInWeb } from "../../api/apis";
 import { useDispatch } from "react-redux";
@@ -24,6 +24,7 @@ const theme = createTheme();
 export default function SignIn() {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -31,6 +32,7 @@ export default function SignIn() {
   const { email, password } = data;
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+    console.log(data);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -39,11 +41,12 @@ export default function SignIn() {
         const obj = res.data;
         const OK = obj.code === "Ok";
         if (OK) {
-          console.log(obj);
           enqueueSnackbar(obj.message, successConfig);
           dispatch(StoreMemberOauth(obj));
+          setTimeout(() => {
+            navigate("/home");
+          }, 700);
         } else {
-          console.log(obj);
           enqueueSnackbar(obj.message, errorConfig);
         }
       })
