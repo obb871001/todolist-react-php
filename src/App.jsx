@@ -3,9 +3,9 @@ import { Fragment, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Home from "./pages/Home/Home";
-import SignIn from "./pages/SignIn/SignIn";
-import SignUp from "./pages/SignUp/SignUp";
+import "./css/main.css";
+import Wrapper from "./components/Wrapper/Wrapper";
+import { routes } from "./utils/routes/routes";
 
 function App() {
   return (
@@ -13,9 +13,21 @@ function App() {
       <SnackbarProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/home" element={<Home />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
+            {routes.map((route) => {
+              console.log(route);
+              return (
+                <Route
+                  path={route.path}
+                  element={
+                    route.path === "/signin" || route.path === "/signup" ? (
+                      route.element
+                    ) : (
+                      <Wrapper>{route.element}</Wrapper>
+                    )
+                  }
+                />
+              );
+            })}
           </Routes>
         </BrowserRouter>
       </SnackbarProvider>
