@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Copyright from "../../components/Footer/CopyRight";
 import { SignInWeb } from "../../api/apis";
 import { useDispatch } from "react-redux";
-import { StoreMemberOauth } from "../../redux/action/ACTION";
+import { isLogin } from "../../redux/action/ACTION";
 import { useSnackbar } from "notistack";
 import { errorConfig, successConfig } from "../../utils/alert/AlertConfig";
 
@@ -42,7 +42,7 @@ export default function SignIn() {
         const OK = obj.code === "Ok";
         if (OK) {
           enqueueSnackbar(obj.message, successConfig);
-          dispatch(StoreMemberOauth(obj));
+          dispatch(isLogin());
           setTimeout(() => {
             navigate("/home");
           }, 700);

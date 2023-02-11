@@ -1,6 +1,5 @@
-export const StoreMemberOauth = (data) => {
-    return {
-      type: "StoreMemberOauth",
-      payload: data,
-    };
+export const isLogin = (data) => {
+  return {
+    type: "isLogin",
   };
+};

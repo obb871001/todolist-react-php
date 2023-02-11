@@ -2,6 +2,7 @@ import reactIcon from "../../images/icon/react.png";
 import phpIcon from "../../images/icon/php.png";
 import gitIcon from "../../images/icon/git.svg";
 import tailwindCss from "../../images/icon/tailwindcss.png";
+import Timeline from "./Components/Timeline";
 
 const SkillCard = () => {
   const skillList = [
@@ -34,6 +35,7 @@ const Experience = () => {
   return (
     <section>
       <p className="font-bold text-[50px]">Experience</p>
+      <Timeline />
     </section>
   );
 };

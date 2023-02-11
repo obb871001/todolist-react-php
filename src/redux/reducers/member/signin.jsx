@@ -1,7 +1,7 @@
-const MemberOauth = (state = { isLoggedIn: false, ouath: "" }, action) => {
-  switch (action.payload) {
-    case "StoreMemberOauth":
-      return action.payload;
+const MemberOauth = (state = { isLoggedIn: false }, action) => {
+  switch (action.type) {
+    case "isLogin":
+      return (state = { isLoggedIn: true });
     default:
       return state;
   }
