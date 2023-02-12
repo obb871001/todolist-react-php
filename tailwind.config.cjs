@@ -6,6 +6,9 @@ module.exports = {
       padding: {
         myself: "200px",
       },
+      minWidth: {
+        unset: "unset",
+      },
     },
   },
   plugins: [],

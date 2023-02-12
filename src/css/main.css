@@ -1,3 +1,13 @@
 .transform-translate-center {
   transform: translate(-50%, -50%);
 }
+.bg-0 {
+  background-color: unset !important;
+}
+
+.GitStyle {
+  font-family: "Open Sans", sans-serif;
+}
+.GitStyle .github-header {
+  font-family: "San Francisco", sans-serif;
+}
