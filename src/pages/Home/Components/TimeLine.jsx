@@ -19,6 +19,7 @@ import GOIcon from "../../../images/timelineIcon/Golang.png";
 import FutureIcon from "../../../images/timelineIcon/Future.png";
 import NextjsIcon from "../../../images/timelineIcon/Nextjs.png";
 import AWSIcon from "../../../images/timelineIcon/AWS.png";
+import BootstrapIcon from "../../../images/timelineIcon/bootstrap.png";
 
 const imageStyle = "w-[40px] object-fit mr-[10px]";
 const Skill = [
@@ -73,11 +74,16 @@ const Skill = [
     secondTitle: "回公司開始正式參與公司專案",
     MainIcon: CodeIcon,
     InnerContent: (
-      <section>
+      <>
+        <section className="flex items-center">
+          <img src={JQIcon} className={imageStyle} />
+          <img src={BootstrapIcon} className={imageStyle} />
+        </section>
+
         <p className="text-sm">
           這兩個月是我程式碼的邏輯蛻變最大時期，當兵時期看不懂的react框架書籍，這期間可能對於JQuery應用上比較熟悉，所以對於框架的邏輯應用在腦中開始慢慢萌芽了！
         </p>
-      </section>
+      </>
     ),
   },
   {
@@ -106,25 +112,15 @@ const Skill = [
     ),
   },
   {
-    Title: "學習後端！開始嘗試獨立開發",
-    Time: "2023/02 - NOW",
-    secondTitle: "期許自己成為更厲害的開發者",
-    MainIcon: PHPIcon,
-    InnerContent: (
-      <>
-        <p className="text-sm">
-          在剛開始寫網站時，我就期許自己也能寫出一個網站，前後端都是由自己寫出來的，也許是這股想法埋在心裡很久了，在過年的這段期間決定年後開始自己學習後端。這個網站也是我的第一份作品，我希望給自己的第一份作品是我當初心中想實現的目標！
-        </p>
-      </>
-    ),
-  },
-  {
     Title: "學習後端！開始接觸後端語言以及資料庫並且嘗試獨立開發",
     Time: "2023/02 - NOW",
     secondTitle: "期許自己成為更厲害的開發者",
     MainIcon: PHPIcon,
     InnerContent: (
       <>
+        <section className="flex items-center">
+          <img src={PHPIcon} className={imageStyle} />
+        </section>
         <p className="text-sm">
           在剛開始寫網站時，我就期許自己也能寫出一個網站，前後端都是由自己寫出來的，也許是這股想法埋在心裡很久了，在過年的這段期間決定年後開始自己學習後端。這個網站也是我的第一份作品，我希望給自己的第一份作品是我當初心中想實現的目標！
         </p>
@@ -186,7 +182,7 @@ const Timeline = () => {
               </div>
             }
           >
-            <h3 className="vertical-timeline-element-title mb-[10px]">
+            <h3 className="vertical-timeline-element-title font-bold text-xl mb-[10px]">
               {Description.Title}
             </h3>
             {Description.InnerContent}
