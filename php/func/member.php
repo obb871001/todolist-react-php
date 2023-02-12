@@ -5,6 +5,9 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 date_default_timezone_set("Asia/Taipei");
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include_once dirname(__FILE__)."/db/db_mysql.php";
 
 function w_log($status,$txt) {
@@ -60,6 +63,46 @@ switch($method){
             }
         }
         break;
+
+        case "check_session":
+            $OAUTH = $data['oauth'] ?? "";
+            if (!isset($OAUTH)) {
+                 $result = array(
+                    'code' => 'Error',
+                    'message' => 'Oauth session not exist!'
+                );
+            }else{
+                $m = loaddata_row("register_list"," WHERE oauth='".$OAUTH."' ");
+                if($m !== false){
+                    if ($m === NULL) {
+                        $result  = array(
+                            'code' => 'Error',
+                            'message' => "User not exists or oauth wrong",
+                        );
+                    } else if ($OAUTH === $m['oauth']) {
+                        $result  = array(
+                            'code' => 'Ok',
+                            'message' => "Login!",
+                            'oauth' => $OAUTH,
+                            'userName' => $m['userName'],
+                            'email' => $m['email'],
+                            'class' => $m['class'],
+                        );                      
+                    } else {
+                        $result  = array(
+                            'code' => 'Error',
+                            'message' => "Oauth wrong",
+                        );
+                    }                }else{
+                    $result = array(
+                        'code' => 'Error',
+                        'message' => "Data not found",
+                    );
+                }
+               
+            };
+            break;
+    
         
     case "login":
         $email = $data['email'] ?? "";
@@ -80,6 +123,16 @@ switch($method){
             }else{
                 if($password === $m['password'] && $email === $m['email']){
                     $oauth = md5(uniqid(mt_srand((double)microtime() * 1000000)));
+                    if (isset($_SESSION['sess_Oauth'])) {
+						unset($_SESSION['sess_Oauth']);
+					}
+					$_SESSION['sess_Oauth'] = $oauth;
+                    $_SESSION['sess_oauth'] = 'some_value';
+
+                    $sql = "UPDATE register_list SET oauth='".$oauth."',oauth='".$oauth."'
+                            WHERE uid='".$m['uid']."' ";
+                    sql_exe($sql);
+                    w_log("LOGGGINGING_login", json_encode($_SESSION));
                     $result  = array(
                       'code' => 'Ok',
                       'message' => "Login!",
@@ -111,7 +164,6 @@ switch($method){
 //         "message"=>"error"
 //     );
 // }
-
 w_log("Response",json_encode($result));
 echo json_encode($result);
 
