@@ -52,7 +52,6 @@ export default function SignUp() {
       v_email: Boolean(email) && EMAIL_EXPRESS.test(email),
     };
     const { v_userName, v_password, v_password2, v_email } = tempValidation;
-    console.log(v_password, v_password2);
     if (password !== password2) {
       setValidation({ ...tempValidation, v_password2: false });
     } else {
@@ -91,98 +90,91 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign up
-          </Typography>
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
-          >
-            <TextField
-              error={!v_userName}
-              margin="normal"
-              required
-              fullWidth
-              id="userName"
-              label="UserName"
-              name="userName"
-              autoComplete="email"
-              onChange={handleChange}
-              helperText={!v_userName && "請輸入正確名稱"}
-              autoFocus
-            />
-            <TextField
-              error={!v_password}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={handleChange}
-              helperText={!v_password && "請輸入6~12字"}
-              autoComplete="current-password"
-            />
-            <TextField
-              error={!v_password2}
-              margin="normal"
-              required
-              fullWidth
-              name="password2"
-              label="Password2"
-              type="password"
-              id="password2"
-              onChange={handleChange}
-              helperText={!v_password2 && "請輸入6~12字，或確認是否與密碼相同"}
-              autoComplete="current-password"
-            />
-            <TextField
-              error={!v_email}
-              margin="normal"
-              required
-              fullWidth
-              name="email"
-              label="Email"
-              id="email"
-              onChange={handleChange}
-              helperText={!v_email && "請輸入正確email格式"}
-              autoComplete
-            />
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
+        </Typography>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            error={!v_userName}
+            margin="normal"
+            required
+            fullWidth
+            id="userName"
+            label="UserName"
+            name="userName"
+            autoComplete="email"
+            onChange={handleChange}
+            helperText={!v_userName && "請輸入正確名稱"}
+            autoFocus
+          />
+          <TextField
+            error={!v_password}
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            onChange={handleChange}
+            helperText={!v_password && "請輸入6~12字"}
+            autoComplete="current-password"
+          />
+          <TextField
+            error={!v_password2}
+            margin="normal"
+            required
+            fullWidth
+            name="password2"
+            label="Password2"
+            type="password"
+            id="password2"
+            onChange={handleChange}
+            helperText={!v_password2 && "請輸入6~12字，或確認是否與密碼相同"}
+            autoComplete="current-password"
+          />
+          <TextField
+            error={!v_email}
+            margin="normal"
+            required
+            fullWidth
+            name="email"
+            label="Email"
+            id="email"
+            onChange={handleChange}
+            helperText={!v_email && "請輸入正確email格式"}
+            autoComplete
+          />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign Up
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to="/signin">Sign in</Link>
-              </Grid>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Sign Up
+          </Button>
+          <Grid container>
+            <Grid item xs>
+              <Link to="/signin">Sign in</Link>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+      </Box>
+      <Copyright sx={{ mt: 8, mb: 4 }} />
+    </Container>
   );
 }

@@ -3,3 +3,10 @@ export const isLogin = (data) => {
     type: "isLogin",
   };
 };
+
+export const StoreInfo = (data) => {
+  return {
+    type: "StoreInfo",
+    payload:data,
+  };
+};

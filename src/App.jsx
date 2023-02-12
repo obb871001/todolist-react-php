@@ -1,15 +1,26 @@
 import { SnackbarProvider } from "notistack";
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./utils/theme/theme";
 import "./App.css";
 import "./css/main.css";
 import Wrapper from "./components/Wrapper/Wrapper";
 import { routes } from "./utils/routes/routes";
+import { CheckOauth } from "./api/apis";
+import { useDispatch } from "react-redux";
+import { StoreInfo } from "./redux/action/ACTION";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    CheckOauth()
+      .then((res) => dispatch(StoreInfo(res.data)))
+      .catch((error) => console.log(error));
+  }, []);
   return (
-    <Fragment>
+    <ThemeProvider theme={theme}>
       <SnackbarProvider>
         <BrowserRouter>
           <Routes>
@@ -31,7 +42,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </SnackbarProvider>
-    </Fragment>
+    </ThemeProvider>
   );
 }
 
