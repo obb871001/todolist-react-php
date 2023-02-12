@@ -41,6 +41,14 @@ export default function SignIn() {
         if (OK) {
           enqueueSnackbar(obj.message, successConfig);
           dispatch(isLogin());
+          if (window.sessionStorage.getItem("sess_oauth") !== null) {
+            window.sessionStorage.removeItem("sess_oauth");
+          }
+          window.sessionStorage.setItem("sess_oauth", obj.oauth);
+          CheckOauth()
+            .then((res) => console.log(res.data))
+            .catch((error) => console.log(error));
+
           setTimeout(() => {
             navigate("/home");
           }, 700);
