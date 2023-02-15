@@ -16,7 +16,13 @@ function App() {
 
   useEffect(() => {
     CheckOauth()
-      .then((res) => dispatch(StoreInfo(res.data)))
+      .then((res) => {
+        const obj = res.data;
+        const OK = obj.code === "Ok";
+        if (OK) {
+          dispatch(StoreInfo(obj));
+        }
+      })
       .catch((error) => console.log(error));
   }, []);
   return (

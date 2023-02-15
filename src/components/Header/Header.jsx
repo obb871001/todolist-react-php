@@ -18,13 +18,13 @@ const Header = () => {
 
   return (
     <header className="w-full h-[70px] bg-[#242424] text-white p-5 fixed top-0 left-0 z-[9999]">
-      <section className="mx-auto w-[70%] flex justify-between items-center">
+      <section className="mx-auto xl:w-[70%] md:w-full flex justify-between items-center">
         <section>
           <p className="font-semibold text-xl">Kuo Shuan Lin's Web</p>
         </section>
         <section className="flex items-center">
-          {TAB.filter(
-            (tab) => memberInfo?.userName && tab.label !== "Sign in"
+          {TAB.filter((tab) =>
+            memberInfo?.userName ? tab.label !== "Sign in" : tab.label
           ).map((tab) => (
             <Link
               to={`/${tab.label.toLocaleLowerCase().replace(/\s/g, "")}`}
