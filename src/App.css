@@ -52,3 +52,10 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.MuiInputLabel-outlined {
+  color: white !important;
+}
+.ql-toolbar {
+  color: #fff;
+  background-color: #fff;
+}
