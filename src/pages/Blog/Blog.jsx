@@ -1,6 +1,6 @@
 import { Fragment } from "react";
-import Body from "./Body";
-import MainText from "./MainText";
+import Body from "./components/Body";
+import MainText from "./components/MainText";
 
 const Blog = () => {
   return (

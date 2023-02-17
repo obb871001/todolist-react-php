@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
-import TESTBG from "../../images/blogbackground/testbg.jpg";
-import StartBackground from "./StartBackground";
+import TESTBG from "../../../images/blogbackground/testbg.jpg";
+import StartBackground from "../../../components/StarBackground/StarBackground";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 
 const cardStyle =
   "h-[450px] bg-[#242424] border border-[#313131] rounded-xl shadow-xl overflow-hidden cursor-pointer hover:shadow-gray-700";
@@ -27,10 +28,26 @@ const BlogCard = () => {
   );
 };
 
+const AddBlog = () => {
+  const navigate = useNavigate();
+  return (
+    <section
+      onClick={() => navigate("/createblog")}
+      className={`${cardStyle} flex items-center justify-center`}
+    >
+      <div className="flex flex-col items-center justify-center">
+        <AddBoxIcon className="!text-[100px]" />
+        <p>新增文章</p>
+      </div>
+    </section>
+  );
+};
+
 const Body = () => {
   return (
     <main className="grid xl:grid-cols-4 md:grid-cols-3 gap-4">
       <BlogCard />
+      <AddBlog />
     </main>
   );
 };
