@@ -10,6 +10,7 @@ import { routes } from "./utils/routes/routes";
 import { CheckOauth } from "./api/apis";
 import { useDispatch } from "react-redux";
 import { StoreInfo } from "./redux/action/ACTION";
+import StartBackground from "./components/StarBackground/StarBackground";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <SnackbarProvider>
+        {/* <StartBackground /> */}
         <BrowserRouter>
           <Routes>
             {routes.map((route) => {

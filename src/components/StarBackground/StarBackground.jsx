@@ -1,10 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
 import * as THREE from "three";
 
 function RotatingBox() {
   const meshRef = useRef();
-
   useFrame(() => {
     meshRef.current.rotation.x += 0.01;
     meshRef.current.rotation.y += 0.01;
@@ -21,13 +20,18 @@ function Stars() {
   const starRef = useRef();
 
   useFrame(() => {
-    starRef.current.position.z += 0.9;
+    const maxZ = -400;
+    starRef.current.position.z += 1.2;
+
+    if (starRef.current.position.z > 0) {
+      starRef.current.position.z = maxZ;
+    }
   });
 
   const starsGeometry = new THREE.BufferGeometry();
   const positions = [];
 
-  for (let i = 0; i < 20000; i++) {
+  for (let i = 0; i < 10000; i++) {
     const x = (Math.random() - 0.5) * 2000;
     const y = (Math.random() - 0.5) * 2000;
     const z = -Math.random() * 2000 - 100;
@@ -39,31 +43,20 @@ function Stars() {
   );
   const starsMaterial = new THREE.PointsMaterial({
     sizeAttenuation: false,
-    size: 0.5,
+    size: 1,
     color: 0xffffff,
   });
 
   return (
-    <points ref={starRef} geometry={starsGeometry} material={starsMaterial}>
-      {/* <shaderMaterial
-        attach="material"
-        vertexShader={`
-          void main() {
-            gl_PointSize = 20.0;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-          }
-        `}
-        fragmentShader={`
-          void main() {
-            gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-          }
-        `}
-      /> */}
-    </points>
+    <points
+      ref={starRef}
+      geometry={starsGeometry}
+      material={starsMaterial}
+    ></points>
   );
 }
 
-function StartBackground() {
+function StarBackground() {
   return (
     <Canvas
       style={{
@@ -82,4 +75,4 @@ function StartBackground() {
   );
 }
 
-export default StartBackground;
+export default StarBackground;
