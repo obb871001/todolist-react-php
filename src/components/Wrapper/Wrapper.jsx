@@ -1,12 +1,12 @@
 import React from "react";
-import StartBackground from "../../pages/Blog/StartBackground";
+import StartBackground from "../StarBackground/StarBackground";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 const Wrapper = ({ children, Background }) => {
   return (
     <section className={``}>
-      <StartBackground />
+      {/* <StartBackground /> */}
       <Header />
       {children}
       <Footer />
