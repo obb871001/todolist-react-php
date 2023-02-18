@@ -10,6 +10,11 @@ import {
 import DriveFileRenameOutlineIcon from "@mui/icons-material/DriveFileRenameOutline";
 import QuillText from "./components/QuillText";
 import SendIcon from "@mui/icons-material/Send";
+import { CreatBlog } from "../../api/apis";
+import axios from "axios";
+import { API_URL } from "../../constant";
+import { useSnackbar } from "notistack";
+import { errorConfig, successConfig } from "../../utils/alert/AlertConfig";
 
 const InputConfig = {
   label: {
@@ -32,15 +37,47 @@ const InputConfig = {
 };
 
 const CreateBlog = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [selectedFile, setSelectedFile] = useState();
-
+  const [data, setData] = useState({
+    title: "",
+    image: {},
+    content: "",
+    imageName: "",
+  });
+  const [img, setImg] = useState();
+  const { title, image, content, imageName } = data;
   const handleFileInput = (e) => {
-    setSelectedFile(e.target.files[0]);
-    console.log(selectedFile);
+    const IMAGE = e.target.files[0];
+    setData({ ...data, imageName: e.target.files[0].name });
+    console.log(e.target.files[0]);
+    const reader = new FileReader();
+    reader.readAsDataURL(IMAGE);
+    reader.onload = function () {
+      const base64 = reader.result.split(",")[1];
+      setData({ ...data, image: base64 });
+      setSelectedFile(base64);
+    };
   };
 
   const handleUpload = () => {
-    console.log(selectedFile);
+    console.log(data);
+    CreatBlog({
+      title: title,
+      image: selectedFile,
+      content: content,
+      imageName: imageName,
+    })
+      .then((res) => {
+        const obj = res.data;
+        const OK = obj.code === "Ok";
+        if (OK) {
+          enqueueSnackbar(obj.message, successConfig);
+        } else {
+          enqueueSnackbar(obj.message, errorConfig);
+        }
+      })
+      .catch((error) => console.log(error));
     // Upload logic goes here
   };
   return (
@@ -55,6 +92,10 @@ const CreateBlog = () => {
       <Stack sx={{ marginBottom: "20px" }}>
         <TextField
           sx={InputConfig}
+          onChange={(e) => {
+            setData({ ...data, title: e.target.value });
+            console.log(data);
+          }}
           id="demo-helper-text-aligned"
           label="標題"
         />
@@ -69,9 +110,15 @@ const CreateBlog = () => {
         文章內容
       </Typography>
       <Stack sx={{ marginBottom: "20px" }}>
-        <QuillText />
+        <QuillText setData={setData} data={data} />
       </Stack>
-      <Button variant="contained" endIcon={<SendIcon />}>
+      <Button
+        variant="contained"
+        onClick={() => {
+          handleUpload();
+        }}
+        endIcon={<SendIcon />}
+      >
         上傳文章！
       </Button>
     </main>
