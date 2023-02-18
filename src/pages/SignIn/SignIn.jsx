@@ -30,7 +30,6 @@ export default function SignIn() {
   const { email, password } = data;
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
-    console.log(data);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
