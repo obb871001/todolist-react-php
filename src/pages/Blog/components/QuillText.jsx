@@ -11,8 +11,7 @@ const theme = {
   },
 };
 
-const QuillText = () => {
-  const [content, setContent] = useState("");
+const QuillText = ({ setData, data }) => {
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -35,7 +34,7 @@ const QuillText = () => {
       });
       editor.on("text-change", (delta, oldDelta, source) => {
         const html = editorRef.current.querySelector(".ql-editor").innerHTML;
-        console.log("HTML:", html);
+        setData({ ...data, content: html });
       });
     }
   }, [editorRef]);
