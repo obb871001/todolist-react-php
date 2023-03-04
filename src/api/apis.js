@@ -28,16 +28,8 @@ export const SignUpWeb = ({ email, password, userName, password2 } = {}) => {
   });
 };
 
-// export const CreatBlog = ({ formdata } = {}) => {
-//   return axios.post(`${API_URL}`, formdata, { FormHeaders });
-// };
-export const CreatBlog = ({ title, image, content, imageName } = {}) => {
-  return axios.post(`${API_URL}`, {
-    oauth: sessionStorage.getItem("sess_oauth"),
-    method: "CreateBlog",
-    title: title,
-    image: image,
-    content: content,
-    imageName: imageName,
+export const CreatBlog = ({ formdata } = {}) => {
+  return axios.post(`${API_URL}`, formdata, {
+    headers: { "Content-Type": "multipart/form-data" },
   });
 };

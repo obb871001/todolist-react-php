@@ -39,34 +39,31 @@ const InputConfig = {
 const CreateBlog = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   const [selectedFile, setSelectedFile] = useState();
+  const [quillText, setQuillText] = useState("");
   const [data, setData] = useState({
     title: "",
     image: {},
-    content: "",
     imageName: "",
   });
   const [img, setImg] = useState();
   const { title, image, content, imageName } = data;
   const handleFileInput = (e) => {
     const IMAGE = e.target.files[0];
-    setData({ ...data, imageName: e.target.files[0].name });
-    console.log(e.target.files[0]);
-    const reader = new FileReader();
-    reader.readAsDataURL(IMAGE);
-    reader.onload = function () {
-      const base64 = reader.result.split(",")[1];
-      setData({ ...data, image: base64 });
-      setSelectedFile(base64);
-    };
+    setData({ ...data, image: IMAGE, imageName: e.target.files[0].name });
   };
 
   const handleUpload = () => {
     console.log(data);
+    let formdata = new FormData();
+    formdata.append("method", "CreateBlog");
+    formdata.append("oauth", sessionStorage.getItem("sess_oauth"));
+    formdata.append("title", title);
+    formdata.append("content", quillText);
+    formdata.append("image", image);
+    formdata.append("imageName", imageName);
+
     CreatBlog({
-      title: title,
-      image: selectedFile,
-      content: content,
-      imageName: imageName,
+      formdata: formdata,
     })
       .then((res) => {
         const obj = res.data;
@@ -78,8 +75,8 @@ const CreateBlog = () => {
         }
       })
       .catch((error) => console.log(error));
-    // Upload logic goes here
   };
+  console.log(quillText);
   return (
     <main className="pt-[100px] xl:px-myself md:px-[100px]">
       <DriveFileRenameOutlineIcon
@@ -110,7 +107,7 @@ const CreateBlog = () => {
         文章內容
       </Typography>
       <Stack sx={{ marginBottom: "20px" }}>
-        <QuillText setData={setData} data={data} />
+        <QuillText quillText={quillText} setQuillText={setQuillText} />
       </Stack>
       <Button
         variant="contained"
