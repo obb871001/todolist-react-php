@@ -4,6 +4,7 @@ import CreateBlog from "../../pages/Blog/CreateBlog";
 import Home from "../../pages/Home/Home";
 import SignIn from "../../pages/SignIn/SignIn";
 import SignUp from "../../pages/SignUp/SignUp";
+import WhatAreYouDoingToday from "../../pages/WhatAreYouDoingToday/WhatAreYouDoingToday";
 
 export const routes = [
   { path: "/home", element: <Home />, isNav: true },
@@ -12,4 +13,5 @@ export const routes = [
   { path: "/blog", element: <Blog />, isNav: true },
   { path: "/blog/:id", element: <BlogInner />, isNav: true },
   { path: "/createblog", element: <CreateBlog />, isNav: true },
+  { path: "/whatrudoingtoday", element: <WhatAreYouDoingToday />, isNav: true },
 ];
