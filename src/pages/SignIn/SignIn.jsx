@@ -15,7 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Copyright from "../../components/Footer/CopyRight";
 import { CheckOauth, SignInWeb } from "../../api/apis";
 import { useDispatch } from "react-redux";
-import { isLogin } from "../../redux/action/ACTION";
+import { isLogin, StoreInfo } from "../../redux/action/ACTION";
 import { useSnackbar } from "notistack";
 import { errorConfig, successConfig } from "../../utils/alert/AlertConfig";
 
@@ -44,8 +44,11 @@ export default function SignIn() {
             window.sessionStorage.removeItem("sess_oauth");
           }
           window.sessionStorage.setItem("sess_oauth", obj.oauth);
+
           CheckOauth()
-            .then((res) => console.log(res.data))
+            .then((res) => {
+              dispatch(StoreInfo(res.data));
+            })
             .catch((error) => console.log(error));
 
           setTimeout(() => {

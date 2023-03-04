@@ -11,7 +11,7 @@ const theme = {
   },
 };
 
-const QuillText = ({ setData, data }) => {
+const QuillText = ({ setQuillText, quillText }) => {
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -32,9 +32,14 @@ const QuillText = ({ setData, data }) => {
         theme: "snow",
         modules: { toolbar: toolbarOptions },
       });
+      const temp = document.createElement("div");
+      temp.innerHTML = quillText;
+      const text = quillText.replace(/<p>/g, "").replace(/<\/p>/g, "\n");
+      editor.root.innerHTML = text;
       editor.on("text-change", (delta, oldDelta, source) => {
         const html = editorRef.current.querySelector(".ql-editor").innerHTML;
-        setData({ ...data, content: html });
+
+        setQuillText(html);
       });
     }
   }, [editorRef]);

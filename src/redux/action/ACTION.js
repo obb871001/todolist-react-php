@@ -7,6 +7,13 @@ export const isLogin = (data) => {
 export const StoreInfo = (data) => {
   return {
     type: "StoreInfo",
-    payload:data,
+    payload: data,
+  };
+};
+
+export const StoreBlogList = (data) => {
+  return {
+    type: "StoreBlogList",
+    payload: data,
   };
 };
